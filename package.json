@@ -1,0 +1,29 @@
+{
+  "name": "roadtrip",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "next build && next export && firebase deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbuiltit/roadtrip.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexbuiltit/roadtrip/issues"
+  },
+  "homepage": "https://github.com/alexbuiltit/roadtrip#readme",
+  "dependencies": {
+    "next": "^9.1.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "styled-components": "^4.4.1"
+  }
+}
