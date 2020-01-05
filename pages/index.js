@@ -76,10 +76,7 @@ const Index = () => {
     ref.once("value").then(function(snapshot) {
       let i = 0;
       const snapshotLength = snapshot.numChildren();
-      // console.info(`snap length: ${snapshotLength}`);
       snapshot.forEach(function(childSnapshot) {
-        // getTripById(childSnapshot.key).then(result => {
-        // tripsArray.push(results);
         tripIDsArray.push(childSnapshot.key);
         i++;
         if (i === snapshotLength) callback(tripIDsArray);
