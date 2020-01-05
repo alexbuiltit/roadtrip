@@ -39,8 +39,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script src="/__/firebase/7.6.1/firebase-app.js"></script>
-          <script src="/__/firebase/init.js"></script>
         </body>
       </Html>
     );
