@@ -5,6 +5,7 @@ const Index = () => {
   const [user, setUser] = useState();
   const [tripIDs, setTripIDs] = useState();
   const [trips, setTrips] = useState([]);
+  let textInput = React.createRef();
   const handleSignIn = () => {
     auth.signInWithPopup(provider).then(result => {
       const user = result.user;
@@ -61,6 +62,8 @@ const Index = () => {
       .update({
         [newTripKey]: true
       });
+
+    getTripIds(user, getTripIDsCallback);
   };
 
   const getTripById = id => {
@@ -92,12 +95,13 @@ const Index = () => {
     const tripsArray = [];
     let i = 0;
     const length = IDs.length;
-    console.log(`ids: ${length}`);
     IDs.forEach(ID => {
       getTripById(ID).then(result => {
-        i++;
-        const tripObject = { id: ID, details: result.details };
-        tripsArray.push(tripObject);
+        if (result && result.details) {
+          i++;
+          const tripObject = { id: ID, details: result.details };
+          tripsArray.push(tripObject);
+        }
         if (i === length) {
           callback(tripsArray);
         }
@@ -109,6 +113,13 @@ const Index = () => {
     setTrips(results);
   };
 
+  const deleteTrip = key => {
+    const tripRef = fire.database().ref("trips/");
+    const userRef = fire.database().ref("users/" + user.uid + "/trips");
+    tripRef.child(key).remove();
+    userRef.child(key).remove();
+    getTripIds(user, getTripIDsCallback);
+  };
   useEffect(() => {
     if (user && user.uid) {
       getTripIds(user, getTripIDsCallback);
@@ -131,15 +142,22 @@ const Index = () => {
           Hello {user ? user.displayName : "roadtripper"}
         </h1>
         <div className="row">
-          {user && trips && <TripList trips={trips} title="testing" />}
+          {user && trips && (
+            <TripList trips={trips} removeTrip={deleteTrip} title="testing" />
+          )}
           {!user && (
             <button onClick={() => handleSignIn()}>Sign In using google</button>
           )}
           {user && <button onClick={() => handleLogout()}>Logout</button>}
           {user && (
-            <button onClick={() => createTrip("Trip Title", user.uid)}>
-              Create trip
-            </button>
+            <div>
+              <input type="text" ref={textInput} />
+              <button
+                onClick={() => createTrip(textInput.current.value, user.uid)}
+              >
+                Create trip
+              </button>
+            </div>
           )}
         </div>
       </div>
