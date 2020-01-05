@@ -3,9 +3,13 @@ import PropTypes from "prop-types";
 
 const TripList = ({ title, trips }) => {
   if (!trips) return null;
-  console.log(trips);
+
   const tripItems = trips.map((trip, idx) => {
-    return <div key={idx}>{trip.details.title}</div>;
+    return (
+      <div key={idx}>
+        {trip.id} - {trip.details.title}
+      </div>
+    );
   });
   return (
     <div>

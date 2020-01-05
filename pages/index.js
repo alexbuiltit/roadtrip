@@ -3,7 +3,8 @@ import fire, { auth, provider } from "../fire";
 import TripList from "../components/TripList";
 const Index = () => {
   const [user, setUser] = useState();
-  const [activeUserTrips, setActiveUserTrips] = useState();
+  const [tripIDs, setTripIDs] = useState();
+  const [trips, setTrips] = useState([]);
   const handleSignIn = () => {
     auth.signInWithPopup(provider).then(result => {
       const user = result.user;
@@ -62,37 +63,69 @@ const Index = () => {
       });
   };
 
-  const getTrips = ids => {
-    let allTrips = [];
-    ids.map(id => {
-      const tripData = fire.database().ref("trips/" + id);
-      tripData.on("value", function(snapshot) {
-        let individualTrip = {
-          id: snapshot.key,
-          details: snapshot.child("details").val()
-        };
-        allTrips.push(individualTrip);
+  const getTripById = id => {
+    const ref = fire.database().ref("trips/" + id);
+    return ref.once("value").then(snapshot => {
+      return snapshot.val();
+    });
+  };
+
+  const getTripIds = (user, callback) => {
+    const tripIDsArray = [];
+    const ref = fire.database().ref("users/" + user.uid + "/trips");
+    ref.once("value").then(function(snapshot) {
+      let i = 0;
+      const snapshotLength = snapshot.numChildren();
+      // console.info(`snap length: ${snapshotLength}`);
+      snapshot.forEach(function(childSnapshot) {
+        // getTripById(childSnapshot.key).then(result => {
+        // tripsArray.push(results);
+        tripIDsArray.push(childSnapshot.key);
+        i++;
+        if (i === snapshotLength) callback(tripIDsArray);
       });
     });
-    setActiveUserTrips(allTrips);
+  };
+
+  const getTripIDsCallback = results => {
+    setTripIDs(results);
+  };
+
+  const getTrips = (IDs, callback) => {
+    const tripsArray = [];
+    let i = 0;
+    const length = IDs.length;
+    console.log(`ids: ${length}`);
+    IDs.forEach(ID => {
+      getTripById(ID).then(result => {
+        i++;
+        const tripObject = { id: ID, details: result.details };
+        tripsArray.push(tripObject);
+        if (i === length) {
+          callback(tripsArray);
+        }
+      });
+    });
+  };
+
+  const getTripsCallback = results => {
+    setTrips(results);
   };
 
   useEffect(() => {
     if (user && user.uid) {
-      const currentUsersTrips = fire
-        .database()
-        .ref("users/" + user.uid + "/trips");
-      currentUsersTrips.on("value", function(snapshot) {
-        let tripKeys = [];
-        snapshot.forEach(function(childSnapshot) {
-          tripKeys.push(childSnapshot.key);
-        });
-        getTrips(tripKeys);
-      });
+      getTripIds(user, getTripIDsCallback);
     } else {
-      setActiveUserTrips();
+      setTrips();
+      setTripIDs();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (tripIDs) {
+      getTrips(tripIDs, getTripsCallback);
+    }
+  }, [tripIDs]);
 
   return (
     <div>
@@ -101,7 +134,7 @@ const Index = () => {
           Hello {user ? user.displayName : "roadtripper"}
         </h1>
         <div className="row">
-          {user && <TripList trips={activeUserTrips} title="testing" />}
+          {user && trips && <TripList trips={trips} title="testing" />}
           {!user && (
             <button onClick={() => handleSignIn()}>Sign In using google</button>
           )}
