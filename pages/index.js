@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import fire, { auth, provider } from "../fire";
 import TripList from "../components/TripList";
+import MainLayout from "../components/MainLayout";
 const Index = () => {
   const [user, setUser] = useState();
   const [tripIDs, setTripIDs] = useState();
   const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+    const existingUser = JSON.parse(localStorage.getItem("user"));
+    if (existingUser) {
+      setUser(existingUser);
+    }
+  }, []);
   let textInput = React.createRef();
   const handleSignIn = () => {
     auth.signInWithPopup(provider).then(result => {
       const user = result.user;
       if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
         writeUserData(user.uid, user.displayName, user.email);
       }
@@ -136,7 +145,7 @@ const Index = () => {
   }, [tripIDs]);
 
   return (
-    <div>
+    <MainLayout>
       <div className="hero">
         <h1 className="title">
           Hello {user ? user.displayName : "roadtripper"}
@@ -161,7 +170,7 @@ const Index = () => {
           )}
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 };
 

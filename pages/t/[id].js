@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import fire from "../../fire";
 import Link from "next/link";
+import MainLayout from "../../components/MainLayout";
 export default function Trip() {
   const [tripContent, setTripContent] = useState();
   const router = useRouter();
@@ -18,11 +19,8 @@ export default function Trip() {
   }, [tripContent]);
 
   return (
-    <div>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
+    <MainLayout>
       <h1>{tripContent && tripContent.details.title}</h1>
-    </div>
+    </MainLayout>
   );
 }
