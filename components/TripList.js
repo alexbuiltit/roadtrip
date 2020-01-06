@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 
 const TripList = ({ title, trips, removeTrip }) => {
   if (!trips) return null;
@@ -7,7 +8,9 @@ const TripList = ({ title, trips, removeTrip }) => {
   const tripItems = trips.map((trip, idx) => {
     return (
       <div key={idx}>
-        {trip.id} - {trip.details.title}
+        <Link href="/t/[id]" as={`/t/${trip.id}`}>
+          <a>{trip.details.title}</a>
+        </Link>
         <button onClick={() => removeTrip(trip.id)}>Delete trip</button>
       </div>
     );

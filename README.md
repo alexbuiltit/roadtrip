@@ -17,3 +17,4 @@ I'm building a web app to help organise a European roadtrip in 2020.
 - [ ] Styling/design
 - [ ] Ability to invite friends to trip and allow them to edit
 - [ ] If the trip date is todays date, show itinerary for that day
+- [ ] Set cookie when user logs OR use redux?
