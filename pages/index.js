@@ -14,6 +14,7 @@ const Index = () => {
     }
   }, []);
   let textInput = React.createRef();
+  let joinTripInput = React.createRef();
   const handleSignIn = () => {
     auth.signInWithPopup(provider).then(result => {
       const user = result.user;
@@ -26,6 +27,7 @@ const Index = () => {
   };
   const handleLogout = () => {
     fire.auth().signOut();
+    localStorage.removeItem("user");
     setUser();
   };
 
@@ -58,10 +60,10 @@ const Index = () => {
       .ref("trips/" + newTripKey)
       .set({
         details: {
-          title: title,
-          users: {
-            [userId]: true
-          }
+          title: title
+        },
+        users: {
+          [userId]: true
         }
       });
 
@@ -129,6 +131,16 @@ const Index = () => {
     userRef.child(key).remove();
     getTripIds(user, getTripIDsCallback);
   };
+
+  const joinTrip = key => {
+    const tripRef = fire.database().ref("trips/" + key + "/users/" + user.uid);
+    const userRef = fire.database().ref("users/" + user.uid + "/trips");
+
+    tripRef.set(true);
+    userRef.update({
+      [key]: true
+    });
+  };
   useEffect(() => {
     if (user && user.uid) {
       getTripIds(user, getTripIDsCallback);
@@ -165,6 +177,15 @@ const Index = () => {
                 onClick={() => createTrip(textInput.current.value, user.uid)}
               >
                 Create trip
+              </button>
+            </div>
+          )}
+
+          {user && (
+            <div>
+              <input type="text" ref={joinTripInput} />
+              <button onClick={() => joinTrip(joinTripInput.current.value)}>
+                Join trip
               </button>
             </div>
           )}
