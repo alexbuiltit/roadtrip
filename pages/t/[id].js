@@ -7,11 +7,10 @@ import ContentSection from "../../components/ContentSection";
 
 export default function Trip() {
   const [currentID, setCurrentID] = useState();
-
+  const [user, setUser] = useState();
   const [tripContent, setTripContent] = useState();
   const [addNewContent, setAddNewContent] = useState();
   const router = useRouter();
-  const user = JSON.parse(localStorage.getItem("user"));
   const submitContent = (type, content) => {
     if (currentID) {
       const ref = fire.database().ref("trips/" + currentID);
@@ -27,6 +26,7 @@ export default function Trip() {
   };
 
   useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
     setCurrentID(router.query.id);
     const ref = fire.database().ref("trips/" + router.query.id);
     ref.on("value", function(snapshot) {
