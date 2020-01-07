@@ -11,7 +11,7 @@ export default function Trip() {
   const [tripContent, setTripContent] = useState();
   const [addNewContent, setAddNewContent] = useState();
   const router = useRouter();
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const submitContent = (type, content) => {
     if (currentID) {
       const ref = fire.database().ref("trips/" + currentID);
@@ -19,7 +19,7 @@ export default function Trip() {
       ref.child("content/").update({
         [newContentKey]: {
           type: type,
-          value: content
+          value: user ? `${user.displayName}: ${content}` : content
         }
       });
       setAddNewContent(false);
