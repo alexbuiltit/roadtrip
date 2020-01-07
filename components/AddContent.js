@@ -5,7 +5,6 @@ const AddContent = ({ saveContent }) => {
   let dropdownRef = React.createRef();
   let contentRef = React.createRef();
   const submitContent = (type, content) => {
-    debugger;
     saveContent(type, content);
   };
   return (

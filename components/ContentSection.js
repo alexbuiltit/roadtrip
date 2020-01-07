@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ContentSection = ({ key, content }) => {
-  if (!key && !content) return null;
+  if (!key && !content && !content.value) return null;
 
   return (
     <div>

@@ -13,7 +13,6 @@ export default function Trip() {
   const router = useRouter();
 
   const submitContent = (type, content) => {
-    debugger;
     if (currentID) {
       const ref = fire.database().ref("trips/" + currentID);
       let newContentKey = ref.push().key;
@@ -29,7 +28,6 @@ export default function Trip() {
 
   useEffect(() => {
     setCurrentID(router.query.id);
-    debugger;
     const ref = fire.database().ref("trips/" + router.query.id);
     ref.on("value", function(snapshot) {
       setTripContent(snapshot.val());
@@ -42,6 +40,7 @@ export default function Trip() {
 
   let tripContentSections =
     tripContent &&
+    tripContent.content &&
     Object.keys(tripContent.content).map(contentKey => {
       // console.log(contentKey);
       // console.log(tripContent.content);
