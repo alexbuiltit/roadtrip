@@ -12,16 +12,9 @@ const Section = styled.section`
   margin-bottom: 10px;
 `;
 
-function myFunction() {
-  return;
-  {
-    name: "Bob";
-  }
-}
-
 const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
   if (!contentKey && !content && !content.value) return null;
-  console.log(myFunction());
+
   const lockContent = key => {
     const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
     ref.update({ isLocked: true, lockedBy: currentUser.uid });
