@@ -1,20 +1,57 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import fire from "../fire";
 
-const ContentSection = ({ key, content }) => {
-  if (!key && !content && !content.value) return null;
+const Section = styled.section`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+`;
 
+function myFunction() {
+  return;
+  {
+    name: "Bob";
+  }
+}
+
+const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
+  if (!contentKey && !content && !content.value) return null;
+  console.log(myFunction());
+  const lockContent = key => {
+    const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
+    ref.update({ isLocked: true, lockedBy: currentUser.uid });
+  };
+
+  const unlockContent = key => {
+    const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
+    ref.update({ isLocked: false, lockedby: null });
+  };
   return (
-    <div>
-      <h1>{key}</h1>
+    <Section>
       <p>{content.value}</p>
-    </div>
+      {!content.isLocked && (
+        <button onClick={() => lockContent(contentKey)}>Edit content</button>
+      )}
+      {content.isLocked && (
+        <span>Currently being edited by {content.lockedBy}</span>
+      )}
+      {content.isLocked && (
+        <button onClick={() => unlockContent(contentKey)}>Unlock</button>
+      )}
+    </Section>
   );
 };
 
 ContentSection.propTypes = {
-  key: PropTypes.string,
-  content: PropTypes.object
+  tripId: PropTypes.string,
+  contentKey: PropTypes.string,
+  content: PropTypes.object,
+  currentUser: PropTypes.object
 };
 
 export default ContentSection;

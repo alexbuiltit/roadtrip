@@ -48,8 +48,10 @@ export default function Trip() {
       // console.log(tripContent.content[contentKey].value);
       return (
         <ContentSection
-          key={contentKey}
+          contentKey={contentKey}
           content={tripContent.content[contentKey]}
+          tripId={currentID}
+          currentUser={user}
         />
       );
     });
