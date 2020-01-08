@@ -163,9 +163,7 @@ const Index = () => {
           Hello {user ? user.displayName : "roadtripper"}
         </h1>
         <div className="row">
-          {user && trips && (
-            <TripList trips={trips} removeTrip={deleteTrip} title="testing" />
-          )}
+          {user && trips && <TripList trips={trips} removeTrip={deleteTrip} />}
           {!user && (
             <button onClick={() => handleSignIn()}>Sign In using google</button>
           )}

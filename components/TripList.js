@@ -1,31 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import styled from "styled-components";
 
-const TripList = ({ title, trips, removeTrip }) => {
+const IndividualTrip = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  a {
+    font-size: 24px;
+    color: #333;
+  }
+`;
+
+const TripList = ({ trips, removeTrip }) => {
   if (!trips) return null;
 
   const tripItems = trips.map((trip, idx) => {
     return (
-      <div key={idx}>
+      <IndividualTrip key={idx}>
         <Link href="/t/[id]" as={`/t/${trip.id}`}>
           <a>{trip.details.title}</a>
         </Link>
         <button onClick={() => removeTrip(trip.id)}>Delete trip</button>
-      </div>
+      </IndividualTrip>
     );
   });
-  return (
-    <div>
-      <h1>{title}</h1>
-      {tripItems}
-    </div>
-  );
+  return <div>{tripItems}</div>;
 };
 
 TripList.propTypes = {
   trips: PropTypes.array,
-  title: PropTypes.string,
+
   removeTrip: PropTypes.func
 };
 
