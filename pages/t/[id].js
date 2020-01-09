@@ -18,7 +18,7 @@ export default function Trip() {
       ref.child("content/").update({
         [newContentKey]: {
           type: type,
-          value: user ? `${user.displayName}: ${content}` : content
+          value: content
         }
       });
       setAddNewContent(false);

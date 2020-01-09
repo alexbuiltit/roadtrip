@@ -17,12 +17,15 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
 
   const lockContent = key => {
     const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
-    ref.update({ isLocked: true, lockedBy: currentUser.uid });
+    ref.update({
+      isLocked: true,
+      lockedBy: { id: currentUser.uid, name: currentUser.displayName }
+    });
   };
 
   const unlockContent = key => {
     const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
-    ref.update({ isLocked: false, lockedby: null });
+    ref.update({ isLocked: false, lockedBy: null });
   };
   return (
     <Section>
@@ -31,9 +34,9 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
         <button onClick={() => lockContent(contentKey)}>Edit content</button>
       )}
       {content.isLocked && (
-        <span>Currently being edited by {content.lockedBy}</span>
+        <span>Currently being edited by {content.lockedBy.name}</span>
       )}
-      {content.isLocked && content.lockedBy === currentUser.uid && (
+      {content.isLocked && content.lockedBy.id === currentUser.uid && (
         <button onClick={() => unlockContent(contentKey)}>Unlock</button>
       )}
     </Section>
