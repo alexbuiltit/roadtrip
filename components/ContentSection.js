@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import fire from "../fire";
@@ -33,7 +33,7 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
       {content.isLocked && (
         <span>Currently being edited by {content.lockedBy}</span>
       )}
-      {content.isLocked && (
+      {content.isLocked && content.lockedBy === currentUser.uid && (
         <button onClick={() => unlockContent(contentKey)}>Unlock</button>
       )}
     </Section>
