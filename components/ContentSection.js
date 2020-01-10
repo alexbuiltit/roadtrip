@@ -56,9 +56,6 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
       {content.isLocked && (
         <span>Currently being edited by {content.lockedBy.name}</span>
       )}
-      {content.isLocked && content.lockedBy.id === currentUser.uid && (
-        <button onClick={() => unlockContent(contentKey)}>Unlock</button>
-      )}
     </Section>
   );
 };

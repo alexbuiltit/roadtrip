@@ -6,7 +6,7 @@ const Section = styled.section`
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background: #ccc;
+  background: #7ecd86;
   border-radius: 5px;
   margin-bottom: 10px;
 `;
