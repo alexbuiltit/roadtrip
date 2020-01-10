@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import fire from "../fire";
+import EditContent from "../components/EditContent";
 
 const Section = styled.section`
   display: flex;
@@ -27,6 +28,25 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
     const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
     ref.update({ isLocked: false, lockedBy: null });
   };
+
+  const updateContent = (key, content) => {
+    const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
+    ref.update({
+      value: content,
+      isLocked: false,
+      lockedBy: null
+    });
+  };
+
+  if (content.isLocked && content.lockedBy.id === currentUser.uid) {
+    return (
+      <EditContent
+        content={content}
+        contentKey={contentKey}
+        update={updateContent}
+      />
+    );
+  }
   return (
     <Section>
       <p>{content.value}</p>
