@@ -11,6 +11,11 @@ const Section = styled.section`
   margin-bottom: 10px;
 `;
 
+const InputStyled = styled.input`
+  padding: 20px;
+  border: none;
+`;
+
 const EditContent = ({ content, contentKey, update }) => {
   if (!content) return null;
   const [value, setValue] = useState();
@@ -31,7 +36,7 @@ const EditContent = ({ content, contentKey, update }) => {
       <select ref={dropdownRef}>
         <option value="text">Plain text</option>
       </select>
-      <input
+      <InputStyled
         ref={contentRef}
         type="text"
         defaultValue={value}
