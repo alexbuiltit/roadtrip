@@ -16,7 +16,10 @@ const InputStyled = styled.input`
   border: none;
 `;
 
-const EditContent = ({ content, contentKey, update }) => {
+const DeleteButton = styled.button`
+  background-color: #f7876b;
+`;
+const EditContent = ({ content, contentKey, update, remove }) => {
   if (!content) return null;
   const [value, setValue] = useState();
   let dropdownRef = React.createRef();
@@ -31,6 +34,10 @@ const EditContent = ({ content, contentKey, update }) => {
     update(key, content);
   };
 
+  const deleteContent = key => {
+    remove(key);
+  };
+
   return (
     <Section>
       <select ref={dropdownRef}>
@@ -43,6 +50,9 @@ const EditContent = ({ content, contentKey, update }) => {
         onChange={e => setValue(e.target.value)}
       />
       <button onClick={() => handleClick(contentKey, value)}>Update</button>
+      <DeleteButton onClick={() => deleteContent(contentKey)}>
+        Delete
+      </DeleteButton>
     </Section>
   );
 };
@@ -50,7 +60,8 @@ const EditContent = ({ content, contentKey, update }) => {
 EditContent.propTypes = {
   content: PropTypes.object,
   contentKey: PropTypes.string,
-  update: PropTypes.func
+  update: PropTypes.func,
+  remove: PropTypes.func
 };
 
 export default EditContent;

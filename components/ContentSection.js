@@ -38,12 +38,18 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
     });
   };
 
+  const deleteContent = key => {
+    const ref = fire.database().ref("trips/" + tripId + "/content/" + key);
+    ref.remove();
+  };
+
   if (content.isLocked && content.lockedBy.id === currentUser.uid) {
     return (
       <EditContent
         content={content}
         contentKey={contentKey}
         update={updateContent}
+        remove={deleteContent}
       />
     );
   }
