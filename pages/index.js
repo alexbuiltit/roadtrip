@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import fire, { auth, provider } from "../fire";
 import TripList from "../components/TripList";
 import MainLayout from "../components/MainLayout";
+import Button from "../components/Button";
 const Index = () => {
   const [user, setUser] = useState();
   const [tripIDs, setTripIDs] = useState();
@@ -171,11 +172,10 @@ const Index = () => {
           {user && (
             <div>
               <input type="text" ref={textInput} />
-              <button
-                onClick={() => createTrip(textInput.current.value, user.uid)}
-              >
-                Create trip
-              </button>
+              <Button
+                action={() => createTrip(textInput.current.value, user.uid)}
+                label="Create trip"
+              />
             </div>
           )}
 
