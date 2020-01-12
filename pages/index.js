@@ -166,9 +166,12 @@ const Index = () => {
         <div className="row">
           {user && trips && <TripList trips={trips} removeTrip={deleteTrip} />}
           {!user && (
-            <button onClick={() => handleSignIn()}>Sign In using google</button>
+            <Button
+              action={() => handleSignIn()}
+              label="Sign In using google"
+            />
           )}
-          {user && <button onClick={() => handleLogout()}>Logout</button>}
+          {user && <Button action={() => handleLogout()} label="Logout" />}
           {user && (
             <div>
               <input type="text" ref={textInput} />
@@ -182,9 +185,10 @@ const Index = () => {
           {user && (
             <div>
               <input type="text" ref={joinTripInput} />
-              <button onClick={() => joinTrip(joinTripInput.current.value)}>
-                Join trip
-              </button>
+              <Button
+                action={() => joinTrip(joinTripInput.current.value)}
+                label="Join trip"
+              />
             </div>
           )}
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import styled from "styled-components";
-
+import Button from "./Button";
 const IndividualTrip = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,7 +25,7 @@ const TripList = ({ trips, removeTrip }) => {
         <Link href="/t/[id]" as={`/t/${trip.id}`}>
           <a>{trip.details.title}</a>
         </Link>
-        <button onClick={() => removeTrip(trip.id)}>Delete trip</button>
+        <Button action={() => removeTrip(trip.id)} label="Delete trip" />
       </IndividualTrip>
     );
   });

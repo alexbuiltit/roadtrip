@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import fire from "../fire";
 import EditContent from "../components/EditContent";
+import Button from "../components/Button";
 
 const Section = styled.section`
   display: flex;
@@ -57,7 +58,7 @@ const ContentSection = ({ contentKey, content, tripId, currentUser }) => {
     <Section>
       <p>{content.value}</p>
       {!content.isLocked && (
-        <button onClick={() => lockContent(contentKey)}>Edit content</button>
+        <Button action={() => lockContent(contentKey)} label="Edit content" />
       )}
       {content.isLocked && (
         <span>Currently being edited by {content.lockedBy.name}</span>
