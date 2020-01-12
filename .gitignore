@@ -7,3 +7,4 @@ out
 .env
 database.rules.json
 firebase-debug-log
+.firebaserc
