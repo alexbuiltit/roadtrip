@@ -6,7 +6,7 @@ const Section = styled.section`
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background: #7ecd86;
+  background: #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
 `;
@@ -16,8 +16,18 @@ const InputStyled = styled.input`
   border: none;
 `;
 
+const UpdateButton = styled.button`
+  background-color: #51629e;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+`;
+
 const DeleteButton = styled.button`
   background-color: #f7876b;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
 `;
 const EditContent = ({ content, contentKey, update, remove }) => {
   if (!content) return null;
@@ -49,10 +59,14 @@ const EditContent = ({ content, contentKey, update, remove }) => {
         defaultValue={value}
         onChange={e => setValue(e.target.value)}
       />
-      <button onClick={() => handleClick(contentKey, value)}>Update</button>
-      <DeleteButton onClick={() => deleteContent(contentKey)}>
-        Delete
-      </DeleteButton>
+      <div>
+        <UpdateButton onClick={() => handleClick(contentKey, value)}>
+          Update
+        </UpdateButton>
+        <DeleteButton onClick={() => deleteContent(contentKey)}>
+          Delete
+        </DeleteButton>
+      </div>
     </Section>
   );
 };

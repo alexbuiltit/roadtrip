@@ -25,6 +25,11 @@ export default function Trip() {
     }
   };
 
+  const discardContent = () => {
+    setTripContent();
+    setAddNewContent();
+  };
+
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
     setCurrentID(router.query.id);
@@ -62,7 +67,12 @@ export default function Trip() {
         Add content section
       </button>
       {tripContentSections}
-      {addNewContent && <AddContent saveContent={submitContent} />}
+      {addNewContent && (
+        <AddContent
+          saveContent={submitContent}
+          discardContent={discardContent}
+        />
+      )}
     </MainLayout>
   );
 }
