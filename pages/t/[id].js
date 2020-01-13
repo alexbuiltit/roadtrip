@@ -26,7 +26,6 @@ export default function Trip() {
   };
 
   const discardContent = () => {
-    setTripContent();
     setAddNewContent();
   };
 
