@@ -3,7 +3,7 @@ import reset from "styled-reset";
 const GlobalStyles = createGlobalStyle`
   ${reset}
   body {
-    padding: 20px;
+    padding: 0;
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     transition: all ease 300ms;

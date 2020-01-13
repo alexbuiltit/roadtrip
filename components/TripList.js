@@ -7,7 +7,7 @@ const IndividualTrip = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background: #ccc;
+  border-bottom: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
   a {

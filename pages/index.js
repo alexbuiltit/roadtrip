@@ -1,8 +1,33 @@
 import React, { useState, useEffect } from "react";
 import fire, { auth, provider } from "../fire";
+import styled from "styled-components";
 import TripList from "../components/TripList";
 import MainLayout from "../components/MainLayout";
 import Button from "../components/Button";
+import mainBackground from "../assets/img/landing-bg.png";
+
+const BackgroundImage = styled.img`
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100vh;
+`;
+
+const MainContent = styled.div`
+  width: 100%;
+  max-width: 800px;
+  margin: 150px auto 0 auto;
+  background: #fff;
+  border-radius: 25px;
+  padding: 25px;
+  h1 {
+    margin: 20px 0;
+  }
+`;
+
 const Index = () => {
   const [user, setUser] = useState();
   const [tripIDs, setTripIDs] = useState();
@@ -159,9 +184,10 @@ const Index = () => {
 
   return (
     <MainLayout>
-      <div className="hero">
+      <MainContent>
+        <BackgroundImage src={mainBackground} />
         <h1 className="title">
-          Hello {user ? user.displayName : "roadtripper"}
+          Hello {user ? user.displayName : "Roadtripper"}
         </h1>
         <div className="row">
           {user && trips && <TripList trips={trips} removeTrip={deleteTrip} />}
@@ -192,7 +218,7 @@ const Index = () => {
             </div>
           )}
         </div>
-      </div>
+      </MainContent>
     </MainLayout>
   );
 };
