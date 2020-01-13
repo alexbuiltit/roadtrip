@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import mainBackground from "../assets/img/landing-bg.png";
 
 const BackgroundImage = styled.img`
-  position: absolute;
+  position: fixed;
   z-index: -1;
   top: 0;
   left: 0;
