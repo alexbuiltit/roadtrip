@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "components/Button";
 const IndividualTrip = styled.div`
   display: flex;
   justify-content: space-between;

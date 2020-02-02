@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import fire from "../../fire";
-import MainLayout from "../../components/MainLayout";
-import AddContent from "../../components/AddContent";
-import ContentSection from "../../components/ContentSection";
+import fire from "helpers/fire";
+import MainLayout from "components/MainLayout";
+import AddContent from "components/AddContent";
+import ContentSection from "components/ContentSection";
 
 export default function Trip() {
   const [currentID, setCurrentID] = useState();
