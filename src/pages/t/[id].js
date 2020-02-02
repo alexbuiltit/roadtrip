@@ -38,18 +38,10 @@ export default function Trip() {
     });
   }, []);
 
-  useEffect(() => {
-    if (tripContent) console.info(tripContent);
-  }, [tripContent]);
-
   let tripContentSections =
     tripContent &&
     tripContent.content &&
     Object.keys(tripContent.content).map(contentKey => {
-      // console.log(contentKey);
-      // console.log(tripContent.content);
-      // console.log(tripContent.content[contentKey]);
-      // console.log(tripContent.content[contentKey].value);
       return (
         <ContentSection
           contentKey={contentKey}

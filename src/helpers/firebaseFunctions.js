@@ -89,7 +89,6 @@ const getTripIDsCallback = results => {
 };
 
 export const getTrips = (IDs, callback) => {
-  debugger;
   const tripsArray = [];
   let i = 1;
   const length = IDs.length;

@@ -22,7 +22,6 @@ const MainLayout = props => {
 
   const getTripsCallback = results => {
     setTrips(results);
-    console.log(results);
   };
   useEffect(() => {
     const existingUser = JSON.parse(localStorage.getItem("user"));
@@ -30,6 +29,10 @@ const MainLayout = props => {
       setUser(existingUser);
     }
   }, []);
+
+  useEffect(() => {
+    if (!user) setTrips();
+  }, [user]);
 
   useEffect(() => {
     getTripIds(user && user.uid, getTripIDsCallback);
@@ -40,7 +43,7 @@ const MainLayout = props => {
         <Header
           user={user}
           handleSignIn={() => signIn(setUser)}
-          handleSignOut={signOut}
+          handleSignOut={() => signOut(setUser)}
         />
         <main>{props.children}</main>
       </UserProvider>

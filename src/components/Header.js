@@ -41,7 +41,7 @@ const Header = ({ user, handleSignIn, handleSignOut }) => {
         </div>
         <div>
           {!user && <Button action={handleSignIn} label="Sign in" />}
-          {user && <Button action={() => handleSignOut} label="Sign out" />}
+          {user && <Button action={handleSignOut} label="Sign out" />}
         </div>
         {!isHome && (
           <nav>
