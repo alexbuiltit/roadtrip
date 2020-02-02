@@ -1,6 +1,6 @@
 import fire, { auth, provider } from "./fire";
 
-export const handleSignIn = callback => {
+export const signIn = callback => {
   auth.signInWithPopup(provider).then(result => {
     const user = result.user;
     if (user) {
@@ -10,7 +10,7 @@ export const handleSignIn = callback => {
     }
   });
 };
-export const handleLogout = callback => {
+export const signOut = callback => {
   fire.auth().signOut();
   localStorage.removeItem("user");
   callback();
@@ -89,8 +89,9 @@ const getTripIDsCallback = results => {
 };
 
 export const getTrips = (IDs, callback) => {
+  debugger;
   const tripsArray = [];
-  let i = 0;
+  let i = 1;
   const length = IDs.length;
   IDs.forEach(ID => {
     getTripById(ID).then(result => {
